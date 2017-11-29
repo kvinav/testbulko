@@ -21,7 +21,7 @@
 	<main>
 		<!-- <div class="form-ok">Pour votre message de validation de formulaire</div> -->
 		<!-- <div class="form-error">Pour votre message d'erreur</div> -->
-		<form method="post">
+		<form method="post" action="controlerformulaire.php">
 			<p>Contactez-nous</p>
 			<div class="form-part-1">
 				<div class="form-control">
