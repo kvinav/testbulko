@@ -21,29 +21,74 @@
 	<main>
 		<!-- <div class="form-ok">Pour votre message de validation de formulaire</div> -->
 		<!-- <div class="form-error">Pour votre message d'erreur</div> -->
-		<form method="post" action="controlerformulaire.php">
+		<form method="post" action="controlerformulaire.php" id="contact">
 			<p>Contactez-nous</p>
 			<div class="form-part-1">
 				<div class="form-control">
 					<input type="text" name="nom" placeholder="Nom"/>
+					 <span id="msg_nom"></span>
 				</div>
 				<div class="form-control">
 					<input type="email" name="email" placeholder="Email"/>
+					<span id="msg_email"></span>
 				</div>
 				<div class="form-control">
 					<input type="tel" name="tel" placeholder="Téléphone"/>
+					<span id="msg_tel"></span>
 				</div>
 			</div>
 			<div class="form-part-2">
 				<div class="form-control">
 					<textarea name="message" placeholder="Message"></textarea>
+					 <span id="msg_message"></span>
 				</div>
 				<input type="submit" value="Envoyer" />
 			</div>
 		</form>
+		<span id="msg_all"></span> 
 	</main>
 	<footer>
 		<p>© Bulko - 2017<br>🦄  GLHF</p>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+    $(function(){
+        $("#contact").submit(function(event){
+            var nom        = $("#nom").val();
+            var email      = $("#email").val();
+            var tel        = $("#tel").val();
+            var message    = $("#message").val();
+            var dataString = nom + email + tel + message;
+            var msg_all    = "Merci de remplir tous les champs";
+            var msg_alert  = "Merci de remplir ce champs";
+
+            if (dataString  == "") {
+                $("#msg_all").html(msg_all);
+            } else if (nom == "") {
+                $("#msg_nom").html(msg_alert);
+            } else if (sujet == "") {
+                $("#msg_email").html(msg_alert);
+            } else if (email == "") {
+                $("#msg_tel").html(msg_alert);
+            } else if (message == "") {
+                $("#msg_message").html(msg_alert);
+            } else {
+                $.ajax({
+                    type : "POST",
+                    url: $(this).attr("action"),
+                    data: $(this).serialize(),
+                    success : function() {
+                        $("#contact").html("<p>Formulaire bien envoyé</p>");
+                    },
+                    error: function() {
+                        $("#contact").html("<p>Erreur d'appel, le formulaire ne peut pas fonctionner</p>");
+                    }
+                });
+            }
+
+            return false;
+        });
+    });
+</script>
 	</footer>
 </body>
 </html>
